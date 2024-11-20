@@ -9,7 +9,8 @@ export function CreateTeamButton() {
       <DialogTrigger asChild>
         <Button
           variant="outline"
-          className="w-full text-slate-900 border-blue-500 hover:bg-blue-50"
+          className="w-full font-semibold text-white bg-blue-600 hover:bg-blue-800 hover:text-white
+          flex items-center justify-center transition-all duration-300 focus:outline-none"
         >
           <PlusIcon />
           <h1>Create Team</h1>

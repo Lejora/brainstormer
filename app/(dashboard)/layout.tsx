@@ -9,9 +9,9 @@ export default function DashboardLayout({
   children
 }: DashboardLayoutProps) {
   return (
-    <main className="h-screen bg-gray-50 min-h-max">
+    <main className="h-screen bg-white min-h-max flex items-center">
       <Sidebar />
-      <div className="pl-[250px] h-full">
+      <div className="pl-[270px] h-full w-full">
         <Header />
         {children}
       </div>
