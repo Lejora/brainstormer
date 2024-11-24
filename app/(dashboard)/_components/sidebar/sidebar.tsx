@@ -18,9 +18,7 @@ export function Sidebar() {
         <div className="my-8">
           <CreateTeamButton />
         </div>
-        <h2 className="text-gray-600 tracking-wider mb-2 text-sm">
-          Teams
-        </h2>
+        <h2 className="text-gray-600 tracking-wider mb-2 text-sm">チーム</h2>
         <div className="mb-2">
           <TeamList />
         </div>

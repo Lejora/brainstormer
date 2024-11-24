@@ -10,7 +10,7 @@ export default function DashboardPage() {
 
   return (
     <div className="flex-1 h-[calc(100%-100px)] p-6">
-      {!organization ? <NoTeam /> : <CanvasList />}
+      {!organization ? <NoTeam /> : <CanvasList teamId={organization.id} />}
       {/* <Link href="/canvas">キャンバス テストリンク</Link> */}
     </div>
   );

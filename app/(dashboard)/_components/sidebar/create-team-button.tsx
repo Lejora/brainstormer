@@ -13,7 +13,7 @@ export function CreateTeamButton() {
           flex items-center justify-center transition-all duration-300 focus:outline-none"
         >
           <PlusIcon />
-          <h1>Create Team</h1>
+          <h1>チームを作成</h1>
         </Button>
       </DialogTrigger>
       <DialogContent className="p-0 bg-transparent border-none max-w-[480px]">

@@ -3,6 +3,7 @@ import localFont from "next/font/local";
 import "./globals.css";
 import { ConvexClientProvider } from "@/providers/convex-client-provider";
 import { Work_Sans } from "next/font/google";
+import { Noto_Sans_JP } from "next/font/google";
 import { Toaster } from "@/components/ui/sonner";
 
 const geistSans = localFont({
@@ -21,6 +22,11 @@ const workSans = Work_Sans({
   weight: ["400", "700"],
 });
 
+const NotoSansJP = Noto_Sans_JP({
+  weight: ["400", "700"],
+  subsets: ["latin"],
+});
+
 export const metadata: Metadata = {
   title: "Brainstormer",
   description: "Easy Brainstorming Tool",
@@ -34,7 +40,8 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} ${workSans.className}
+        className={`${geistSans.variable} ${geistMono.variable} 
+         ${workSans.className} ${NotoSansJP.className}
          antialiased`}
       >
         <ConvexClientProvider>

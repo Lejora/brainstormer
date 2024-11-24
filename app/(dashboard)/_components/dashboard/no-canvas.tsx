@@ -1,4 +1,4 @@
-"use client"
+"use client";
 
 import { useOrganization } from "@clerk/clerk-react";
 
@@ -10,19 +10,19 @@ import { useApiMutation } from "@/hook/use-api-mutation";
 import { toast } from "sonner";
 
 export function NoCanvas() {
-  const { organization } = useOrganization()
-  const { mutate, pending } = useApiMutation(api.canvas.create)
+  const { organization } = useOrganization();
+  const { mutate, pending } = useApiMutation(api.canvas.create);
   const onClick = () => {
     if (!organization) return;
 
     mutate({
       teamId: organization.id,
-      title: "Untitled"
+      title: "Untitled",
     })
       .then((id) => toast.success("Canvas created"))
       // TODO redirect to canvas/{id}
-      .catch(() => toast.error("Failed to create board"))
-  }
+      .catch(() => toast.error("Failed to create board"));
+  };
 
   return (
     <div className="flex flex-col items-center justify-center">
@@ -32,16 +32,13 @@ export function NoCanvas() {
         width={300}
         height={300}
       />
-      <h1 className="font-bold text-2xl">No Canvas Found</h1>
-      <h2 className="text-sm text-slate-600">
-        Start by creating a canvas for your team
+      <h1 className="font-bold text-2xl">キャンバスが見つかりませんでした</h1>
+      <h2 className="text-sm text-slate-600 mt-3">
+        キャンバスを作成して始めましょう!
       </h2>
-      <Button
-        className="mt-5"
-        onClick={onClick}
-        disabled={pending}>
+      <Button className="mt-7" onClick={onClick} disabled={pending}>
         <PlusIcon />
-        Create Canvas
+        キャンバスを作成する
       </Button>
     </div>
   );
