@@ -10,12 +10,10 @@ interface BoardProps {
 }
 
 export function Board({ canvasId }: BoardProps) {
-  const info = useSelf((me) => me.info)
-  console.log(info)
 
   return (
     <main className="h-screen w-full relative bg-neutral-100 touch-none">
-      <Info />
+      <Info canvasId={canvasId} />
       <Participants />
       <Toolbar />
     </main>

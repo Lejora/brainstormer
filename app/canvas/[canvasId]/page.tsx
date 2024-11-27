@@ -1,6 +1,6 @@
 import { Board } from "./_components/board";
-import { Loading } from "./_components/loading";
 import { Room } from "./_components/room";
+import { Loading } from "./_components/loading";
 
 interface CanvasIdPageProps {
   params: {
@@ -8,10 +8,13 @@ interface CanvasIdPageProps {
   }
 }
 
-export default function CanvasIdPage({ params }: CanvasIdPageProps) {
+export default async function CanvasIdPage({ params }: CanvasIdPageProps) {
+  const resolvedParams = await params;
+  const canvasId = resolvedParams.canvasId
+
   return (
-    <Room roomId={params.canvasId} fallback={<Loading />}>
-      <Board canvasId={params.canvasId} />
+    <Room roomId={canvasId} fallback={<Loading />}>
+      <Board canvasId={canvasId} />
     </Room>
   )
 }
