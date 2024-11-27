@@ -5,6 +5,7 @@ import { api } from "@/convex/_generated/api";
 import { NoCanvas } from "./no-canvas";
 import { CanvasCard } from "./canvas-card/canvas-card";
 import { NewCanvasButton } from "./new-canvas-button";
+import { CanvasCardSkeleton } from "./canvas-card/canvas-card-skeleton";
 
 interface CanvasListProps {
   teamId: string;
@@ -14,7 +15,17 @@ export function CanvasList({ teamId }: CanvasListProps) {
   const data = useQuery(api.canvases.get, { teamId });
 
   if (data === undefined) {
-    <div>Loading...</div>;
+    return (
+      <div
+        className="grid grid-cols-1 sm:grid-cols-2 
+      md:grid-cols-4 2xl:grid-cols-6 gap-5 mt-8 pb-10"
+      >
+        <NewCanvasButton teamId={teamId} disabled={true} />
+        <CanvasCardSkeleton />
+        <CanvasCardSkeleton />
+        <CanvasCardSkeleton />
+      </div>
+    );
   }
 
   if (!data?.length) {
@@ -28,7 +39,7 @@ export function CanvasList({ teamId }: CanvasListProps) {
         className="grid grid-cols-1 sm:grid-cols-2 
       md:grid-cols-4 2xl:grid-cols-6 gap-5 mt-8 pb-10"
       >
-        <NewCanvasButton teamId={teamId} disabled={false}/>
+        <NewCanvasButton teamId={teamId} disabled={false} />
         {data.map((canvas) => (
           <CanvasCard
             key={canvas._id}

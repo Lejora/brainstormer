@@ -1,4 +1,6 @@
-import { EllipsisVerticalIcon } from "lucide-react";
+import { Actions } from "@/components/actions";
+import { Button } from "@/components/ui/button";
+import { EllipsisVerticalIcon, MoreHorizontalIcon } from "lucide-react";
 
 interface CanvasCardFooterProps {
   title: string;
@@ -6,6 +8,7 @@ interface CanvasCardFooterProps {
   createdAtLabel: string;
   onClick: () => void;
   disabled: boolean;
+  id: string;
 }
 
 export function CanvasCardFooter({
@@ -14,12 +17,20 @@ export function CanvasCardFooter({
   createdAtLabel,
   onClick,
   disabled,
+  id,
 }: CanvasCardFooterProps) {
   return (
     <div className="relative bg-white px-3 py-1">
       <div className="flex items-center justify-between">
         <p className="text-[13px] truncate max-w-full">{title}</p>
-        <EllipsisVerticalIcon size={18} onClick={() => {}} />
+        <Actions id={id} title={title} side="right">
+          <Button
+            className="bg-white hover:bg-gray-100 rounded-full w-5 h-8
+          outline-none text-black"
+          >
+            <EllipsisVerticalIcon />
+          </Button>
+        </Actions>
       </div>
       <p
         className="opacity-0 group-hover:opacity-100 transition-opacity 

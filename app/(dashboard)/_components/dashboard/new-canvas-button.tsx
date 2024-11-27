@@ -17,13 +17,13 @@ export function NewCanvasButton({ teamId, disabled }: NewCanvasButtonProps) {
   const onClick = () => {
     mutate({
       teamId,
-      title: "Untitled",
+      title: "無題",
     })
       .then((id) => {
-        toast.success("Canvas Created");
+        toast.success("キャンバスを作成しました");
       })
       .catch(() => {
-        toast.error("Failed to create new canvas");
+        toast.error("キャンバスを作成できませんでした");
       });
   };
 
@@ -34,8 +34,8 @@ export function NewCanvasButton({ teamId, disabled }: NewCanvasButtonProps) {
         variant="outline"
         className={cn(
           `w-full h-full text-white bg-blue-600 hover:bg-blue-800 hover:text-white
-          flex flex-col items-center justify-center transition-all duration-300 focus:outline-none`,
-          (pending || disabled) && "opacity-70"
+          flex flex-col items-center justify-center transition-all duration-300 focus:outline-none select-none`,
+          (pending || disabled) && "opacity-70 cursor-not-allowed"
         )}
         onClick={onClick}
       >

@@ -1,10 +1,7 @@
 import { mutation } from "./_generated/server";
 import { v } from "convex/values";
 
-const images = [
-  "/placeholders/1.svg",
-  "/placeholders/2.svg",
-];
+const images = ["/placeholders/1.svg", "/placeholders/2.svg"];
 
 export const create = mutation({
   args: {
@@ -29,5 +26,18 @@ export const create = mutation({
     });
 
     return canvas;
+  },
+});
+
+export const remove = mutation({
+  args: { id: v.id("canvas") },
+  handler: async (ctx, args) => {
+    const identity = await ctx.auth.getUserIdentity();
+
+    if (!identity) {
+      throw new Error("Unauthorized");
+    }
+
+    await ctx.db.delete(args.id);
   },
 });
