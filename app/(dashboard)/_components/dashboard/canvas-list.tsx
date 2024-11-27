@@ -16,14 +16,21 @@ export function CanvasList({ teamId }: CanvasListProps) {
 
   if (data === undefined) {
     return (
-      <div
-        className="grid grid-cols-1 sm:grid-cols-2 
+      <div>
+        <h2 className="text-2xl font-semibold">チームのキャンバス</h2>
+        <div
+          className="grid grid-cols-1 sm:grid-cols-2 
       md:grid-cols-4 2xl:grid-cols-6 gap-5 mt-8 pb-10"
-      >
-        <NewCanvasButton teamId={teamId} disabled={true} />
-        <CanvasCardSkeleton />
-        <CanvasCardSkeleton />
-        <CanvasCardSkeleton />
+        >
+          <NewCanvasButton teamId={teamId} disabled={true} />
+          <CanvasCardSkeleton />
+          <CanvasCardSkeleton />
+          <CanvasCardSkeleton />
+          <CanvasCardSkeleton />
+          <CanvasCardSkeleton />
+          <CanvasCardSkeleton />
+          <CanvasCardSkeleton />
+        </div>
       </div>
     );
   }

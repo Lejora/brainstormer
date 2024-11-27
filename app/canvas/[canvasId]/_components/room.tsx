@@ -8,21 +8,21 @@ import {
 } from "@liveblocks/react/suspense";
 
 interface RoomProps {
-  children: ReactNode
-  roomId: string
+  children: ReactNode;
+  roomId: string;
+  fallback: ReactNode
 }
 
 export function Room({
   children,
-  roomId
+  roomId,
+  fallback
 }: RoomProps) {
   return (
-    <LiveblocksProvider publicApiKey={"pk_dev_ihvGdQ2Fr0DbEwGXPLUmQSpA1QRoTlog1Bap6iFa0x-Rnxxr6ntgx-BdbdNZLN8C"}>
-      <RoomProvider
-        id={roomId}
-        initialPresence={{}}
-      >
-        <ClientSideSuspense fallback={<div>Loading…</div>}>
+    // publicApiKey={"pk_dev_ihvGdQ2Fr0DbEwGXPLUmQSpA1QRoTlog1Bap6iFa0x-Rnxxr6ntgx-BdbdNZLN8C"}
+    <LiveblocksProvider authEndpoint="/api/liveblocks-auth">
+      <RoomProvider id={roomId} initialPresence={{}}>
+        <ClientSideSuspense fallback={fallback}>
           {children}
         </ClientSideSuspense>
       </RoomProvider>

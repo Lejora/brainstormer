@@ -7,12 +7,13 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { Link2Icon, Trash2Icon } from "lucide-react";
+import { Link2Icon, PencilIcon, Trash2Icon } from "lucide-react";
 import { toast } from "sonner";
 import { useApiMutation } from "@/hook/use-api-mutation";
 import { api } from "@/convex/_generated/api";
 import { ConfirmModal } from "./confirm-modal";
 import { Button } from "@/components/ui/button";
+import { useRenameModal } from "@/store/use-rename-modal";
 
 interface ActionsProps {
   children: React.ReactNode;
@@ -46,6 +47,8 @@ export function Actions({
       .catch(() => toast.error("キャンバスの消去に失敗しました"));
   };
 
+  const { onOpen } = useRenameModal()
+
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>{children}</DropdownMenuTrigger>
@@ -58,6 +61,10 @@ export function Actions({
         <DropdownMenuItem className="p-3 cursor-pointer" onClick={onCopyLink}>
           <Link2Icon />
           キャンバスのリンクをコピー
+        </DropdownMenuItem>
+        <DropdownMenuItem className="p-3 cursor-pointer" onClick={() => onOpen(id, title)}>
+          <PencilIcon />
+          名前を変更
         </DropdownMenuItem>
         <ConfirmModal
           onConfirm={onDelete}

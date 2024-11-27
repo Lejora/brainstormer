@@ -1,6 +1,6 @@
 import { Actions } from "@/components/actions";
 import { Button } from "@/components/ui/button";
-import { EllipsisVerticalIcon, MoreHorizontalIcon } from "lucide-react";
+import { EllipsisVerticalIcon } from "lucide-react";
 
 interface CanvasCardFooterProps {
   title: string;

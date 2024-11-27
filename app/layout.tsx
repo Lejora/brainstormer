@@ -5,6 +5,7 @@ import { ConvexClientProvider } from "@/providers/convex-client-provider";
 import { Work_Sans } from "next/font/google";
 import { Noto_Sans_JP } from "next/font/google";
 import { Toaster } from "@/components/ui/sonner";
+import { ModalProvider } from "@/providers/modal-provider";
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -45,6 +46,7 @@ export default function RootLayout({
          antialiased`}
       >
         <ConvexClientProvider>
+          <ModalProvider />
           {children}
           <Toaster />
         </ConvexClientProvider>

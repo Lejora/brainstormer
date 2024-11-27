@@ -19,7 +19,7 @@ export function NoCanvas() {
       teamId: organization.id,
       title: "Untitled",
     })
-      .then((id) => toast.success("Canvas created"))
+      .then(() => toast.success("Canvas created"))
       // TODO redirect to canvas/{id}
       .catch(() => toast.error("Failed to create board"));
   };

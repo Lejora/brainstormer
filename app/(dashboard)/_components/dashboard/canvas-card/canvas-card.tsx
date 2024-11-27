@@ -4,9 +4,6 @@ import Image from "next/image";
 import Link from "next/link";
 import { Overlay } from "../overlay";
 import { CanvasCardFooter } from "./canvas-card-footer";
-import { Actions } from "@/components/actions";
-import { Button } from "@/components/ui/button";
-import { EllipsisIcon, MoreHorizontalIcon } from "lucide-react";
 
 interface canvasCardProps {
   id: string;
