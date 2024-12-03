@@ -1,9 +1,14 @@
 "use client"
 
-import { useSelf } from "@liveblocks/react/suspense";
+import { Camera, CanvasMode, CanvasState } from "@/app/types/canvas";
+import { useCanUndo, useCanRedo, useHistory, useMutation } from "@liveblocks/react";
+
 import { Info } from "./info"
 import { Participants } from "./participants"
 import { Toolbar } from "./toolbar"
+import { useCallback, useState } from "react";
+import { CursorsPresence } from "./cursors-presence";
+import { pointerEventToCanvasPoint } from "@/lib/utils";
 
 interface BoardProps {
   canvasId: string
@@ -11,11 +16,56 @@ interface BoardProps {
 
 export function Board({ canvasId }: BoardProps) {
 
+  const [canvasState, setCanvasState] = useState<CanvasState>({ mode: CanvasMode.None })
+  const [camera, setCamera] = useState<Camera>({ x: 0, y: 0 })
+
+  const history = useHistory()
+  const canUndo = useCanUndo()
+  const canRedo = useCanRedo()
+
+  const onWheel = useCallback((e: React.WheelEvent) => {
+    setCamera((camera) => ({
+      x: camera.x - e.deltaX,
+      y: camera.y - e.deltaY
+    }))
+  }, [])
+
+  const onPointerMove = useMutation(
+    ({ setMyPresence }, e: React.PointerEvent) => {
+      e.preventDefault()
+
+      const current = pointerEventToCanvasPoint(e, camera)
+
+      setMyPresence({ cursor: current })
+    }, []
+  )
+
+  const onPointerLeave = useMutation(({ setMyPresence }) => {
+    setMyPresence({ cursor: null })
+  }, [])
+
   return (
     <main className="h-screen w-full relative bg-neutral-100 touch-none">
       <Info canvasId={canvasId} />
       <Participants />
-      <Toolbar />
+      <Toolbar
+        canvasState={canvasState}
+        setCanvasState={setCanvasState}
+        undo={history.undo}
+        redo={history.redo}
+        canUndo={canUndo}
+        canRedo={canRedo}
+      />
+      <svg
+        className="h-[100vh] w-[100vw]"
+        onWheel={onWheel}
+        onPointerMove={onPointerMove}
+        onPointerLeave={onPointerLeave}
+      >
+        <g>
+          <CursorsPresence />
+        </g>
+      </svg>
     </main>
   )
 }

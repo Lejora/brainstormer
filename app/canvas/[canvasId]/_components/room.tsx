@@ -20,8 +20,8 @@ export function Room({
 }: RoomProps) {
   return (
     // publicApiKey={"pk_dev_ihvGdQ2Fr0DbEwGXPLUmQSpA1QRoTlog1Bap6iFa0x-Rnxxr6ntgx-BdbdNZLN8C"}
-    <LiveblocksProvider authEndpoint="/api/liveblocks-auth">
-      <RoomProvider id={roomId} initialPresence={{}}>
+    <LiveblocksProvider authEndpoint="/api/liveblocks-auth" throttle={16}>
+      <RoomProvider id={roomId} initialPresence={{ cursor: null }}>
         <ClientSideSuspense fallback={fallback}>
           {children}
         </ClientSideSuspense>

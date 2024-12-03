@@ -1,0 +1,104 @@
+export type CanvasState =
+  | {
+      mode: CanvasMode.None;
+    }
+  | {
+      mode: CanvasMode.Pressing;
+      origin: Point;
+    }
+  | {
+      mode: CanvasMode.SelectionNet;
+      origin: Point; // 選択開始時の位置x, y
+      current?: Point; // 現在のカーソル位置
+    }
+  | {
+      mode: CanvasMode.Translating;
+      initialBounds: XYWH;
+      corner: Side;
+    }
+  | {
+      mode: CanvasMode.Inserting;
+      layerType: LayerType.Circle | LayerType.Rectangle | LayerType.Text;
+    }
+  | { mode: CanvasMode.Pencil }
+  | {
+      mode: CanvasMode.Resizing;
+      initialBounds: XYWH;
+      corner: Side;
+    };
+
+export enum CanvasMode {
+  None,
+  Pressing,
+  SelectionNet,
+  Translating,
+  Inserting,
+  Resizing,
+  Pencil,
+}
+
+export type Color = {
+  r: number;
+  g: number;
+  b: number;
+};
+
+export type Camera = {
+  x: number;
+  y: number;
+};
+
+export enum LayerType {
+  Rectangle,
+  Circle,
+  Text,
+}
+
+export type RectangleLayer = {
+  type: LayerType.Rectangle;
+  x: number;
+  y: number;
+  height: number;
+  width: number;
+  fillColor: Color;
+  value?: string;
+};
+
+export type CircleLayer = {
+  type: LayerType.Circle;
+  x: number;
+  y: number;
+  height: number;
+  width: number;
+  fillColor: Color;
+  value?: string;
+};
+
+export type TextLayer = {
+  type: LayerType.Text;
+  x: number;
+  y: number;
+  height: number;
+  width: number;
+  fillColor: Color;
+  value?: string;
+};
+
+export type Point = {
+  x: number;
+  y: number;
+};
+
+export type XYWH = {
+  x: number;
+  y: number;
+  width: number;
+  height: number;
+};
+
+export enum Side {
+  Top = 1,
+  Bottom = 2,
+  Left = 4,
+  Right = 8,
+}
