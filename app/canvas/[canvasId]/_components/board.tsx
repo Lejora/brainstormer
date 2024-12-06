@@ -18,13 +18,13 @@ import {
 import { Info } from "./info";
 import { Participants } from "./participants";
 import { Toolbar } from "./toolbar";
-import { useCallback, useState } from "react";
+import { useCallback, useMemo, useState } from "react";
 import { CursorsPresence } from "./cursors-presence";
-import { pointerEventToCanvasPoint } from "@/lib/utils";
-import { useStorage } from "@liveblocks/react/suspense";
+import { connectionIdToColor, pointerEventToCanvasPoint } from "@/lib/utils";
+import { useOthersMapped, useStorage } from "@liveblocks/react/suspense";
 import { nanoid } from "nanoid";
 import { LiveObject } from "@liveblocks/client";
-import { LayerPreview } from "./layer-previer";
+import { LayerPreview } from "./layer-preview";
 
 const MAX_LAYERS = 100;
 
@@ -40,9 +40,9 @@ export function Board({ canvasId }: BoardProps) {
   });
   const [camera, setCamera] = useState<Camera>({ x: 0, y: 0 });
   const [lastUsedColor, setLastUsedColor] = useState<Color>({
-    r: 0,
-    g: 0,
-    b: 0,
+    r: 255,
+    g: 255,
+    b: 255,
   });
 
   const history = useHistory();
@@ -72,6 +72,7 @@ export function Board({ canvasId }: BoardProps) {
 
       liveLayerIds.push(layerId);
       liveLayers.set(layerId, layer);
+      console.log({ liveLayers: liveLayers });
 
       setMyPresence({ selection: [layerId] }, { addToHistory: true });
       setCanvasState({ mode: CanvasMode.None });
@@ -116,6 +117,21 @@ export function Board({ canvasId }: BoardProps) {
     [camera, canvasState, history, insertLayer]
   );
 
+  const selection = useOthersMapped((other) => other.presence.selection);
+
+  const layerIdsToColorSelection = useMemo(() => {
+    const layerIdsToColorSelection: Record<string, string> = {};
+    for (const user of selection) {
+      const [connectionId, selection] = user;
+
+      for (const layerId of selection) {
+        layerIdsToColorSelection[layerId] = connectionIdToColor(connectionId);
+      }
+    }
+
+    return layerIdsToColorSelection;
+  }, [selection]);
+
   return (
     <main className="h-screen w-full relative bg-neutral-100 touch-none">
       <Info canvasId={canvasId} />
@@ -135,13 +151,13 @@ export function Board({ canvasId }: BoardProps) {
         onPointerLeave={onPointerLeave}
         onPointerUp={onPointerUp}
       >
-        <g style={{ transform: `translate(${camera.x}, ${camera.y})` }}>
+        <g transform={`translate(${camera.x}, ${camera.y})`}>
           {layerIds.map((layerId) => (
             <LayerPreview
               key={layerId}
               id={layerId}
               onLayerPointerDown={() => {}}
-              selectionColor="#000"
+              selectionColor={layerIdsToColorSelection[layerId]}
             />
           ))}
           <CursorsPresence />

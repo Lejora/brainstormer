@@ -8,12 +8,13 @@ import { Rectangle } from "./rectangle";
 interface LayerPreviewProps {
   id: string;
   onLayerPointerDown: (e: React.PointerEvent, layerId: string) => void;
-  selectionColor?: string;
+  selectionColor?: string; // ユーザが図形を選択した時の図形の周りの枠線
 }
 
 export const LayerPreview = memo(
   ({ id, onLayerPointerDown, selectionColor }: LayerPreviewProps) => {
     const layer = useStorage((root) => root.layers.get(id));
+    
     if (!layer) {
       return null;
     }

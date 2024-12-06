@@ -9,7 +9,7 @@ export function Loading() {
       <InfoSkeleton />
       <ParticipantsSkeleton />
       <ToolbarSkeleton />
-      <Loader className="animate-spin h-6 w-6 text-muted-foreground" />
+      <Loader className="animate-spin h-6 w-6 text-muted-foreground select-none" />
     </main>
   )
 }

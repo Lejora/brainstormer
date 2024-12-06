@@ -1,6 +1,5 @@
 import { SignInButton } from "@clerk/clerk-react";
 import Image from "next/image";
-import { Button } from "../ui/button";
 
 export function SignIn() {
   return (
@@ -20,14 +19,14 @@ export function SignIn() {
             height={100}
             className="mb-3"
           />
-          <h1 className="text-slate-600 py-1.5">Welcome back to</h1>
+          <h1 className="text-slate-600 py-1.5">おかえりなさい</h1>
           <h1 className="text-xl font-bold">Brainstormer</h1>
         </div>
         <div className="w-1/2">
           <div className="flex items-center justify-center">
             <div className="bg-blue-600 rounded-md drop-shadow-md px-6 py-1.5 hover:bg-blue-500 transition-all">
               <p className="text-white">
-                <SignInButton mode="modal" />
+                <SignInButton mode="modal"/>
               </p>
             </div>
           </div>
