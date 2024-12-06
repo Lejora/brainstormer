@@ -25,6 +25,7 @@ import { useOthersMapped, useStorage } from "@liveblocks/react/suspense";
 import { nanoid } from "nanoid";
 import { LiveObject } from "@liveblocks/client";
 import { LayerPreview } from "./layer-preview";
+import { SelectionBox } from "./selection-box";
 
 const MAX_LAYERS = 100;
 
@@ -103,7 +104,7 @@ export function Board({ canvasId }: BoardProps) {
   }, []);
 
   const onPointerUp = useMutation(
-    ({}, e) => {
+    ({ }, e) => {
       const point = pointerEventToCanvasPoint(e, camera);
 
       if (canvasState.mode === CanvasMode.Inserting) {
@@ -116,6 +117,32 @@ export function Board({ canvasId }: BoardProps) {
     },
     [camera, canvasState, history, insertLayer]
   );
+
+  const onLayerPointerDown = useMutation((
+    { self, setMyPresence },
+    e: React.PointerEvent,
+    layerId: string,
+  ) => {
+    // only when "selected" mode is selected, this func fires
+    if (canvasState.mode === CanvasMode.Pencil
+      || canvasState.mode === CanvasMode.Inserting) {
+      return;
+    }
+
+    history.pause()
+    e.stopPropagation()
+
+    const point = pointerEventToCanvasPoint(e, camera)
+
+    // when "on pointer shape" is not selected yet, make it selected
+    if (!self.presence.selection.includes(layerId)) {
+      setMyPresence({ selection: [layerId] }, { addToHistory: true })
+    }
+
+    // translate shape
+    setCanvasState({ mode: CanvasMode.Translating, current: point })
+  }, [setCanvasState, camera, history, canvasState.mode])
+
 
   const selection = useOthersMapped((other) => other.presence.selection);
 
@@ -156,10 +183,13 @@ export function Board({ canvasId }: BoardProps) {
             <LayerPreview
               key={layerId}
               id={layerId}
-              onLayerPointerDown={() => {}}
+              onLayerPointerDown={onLayerPointerDown}
               selectionColor={layerIdsToColorSelection[layerId]}
             />
           ))}
+          <SelectionBox
+            onResizeHandlePointerDown={() => { }}
+          />
           <CursorsPresence />
         </g>
       </svg>
