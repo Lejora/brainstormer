@@ -112,10 +112,14 @@ export type XYWH = {
 };
 
 export enum Side {
-  Top = 1,
-  Bottom = 2,
-  Left = 4,
-  Right = 8,
+  Top,
+  Bottom,
+  Left,
+  Right,
+  TopLeft,
+  TopRight,
+  BottomLeft,
+  BottomRight,
 }
 
 export type Layer = RectangleLayer | CircleLayer | TextLayer | PathLayer;
