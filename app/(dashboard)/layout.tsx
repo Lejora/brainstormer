@@ -1,3 +1,5 @@
+import { Analytics } from "@vercel/analytics/react"
+
 import { Header } from "./_components/header/header"
 import { Sidebar } from "./_components/sidebar/sidebar"
 
@@ -10,6 +12,7 @@ export default function DashboardLayout({
 }: DashboardLayoutProps) {
   return (
     <main className="h-screen bg-white min-h-max flex items-center">
+      <Analytics />
       <Sidebar />
       <div className="pl-[270px] h-full w-full">
         <Header />
