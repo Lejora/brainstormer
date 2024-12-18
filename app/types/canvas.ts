@@ -17,8 +17,11 @@ export type CanvasState =
     }
   | {
       mode: CanvasMode.Inserting;
-      layerType: LayerType.Circle | LayerType.Rectangle | LayerType.Text;
-      // | LayerType.Path;
+      layerType:
+        | LayerType.Circle
+        | LayerType.Rectangle
+        | LayerType.Text
+        | LayerType.Path;
     }
   | { mode: CanvasMode.Pencil }
   | {
@@ -85,16 +88,16 @@ export type TextLayer = {
   value?: string;
 };
 
-// export type PathLayer = {
-//   type: LayerType.Path;
-//   x: number;
-//   y: number;
-//   height: number;
-//   width: number;
-//   fillColor: Color;
-//   points: number[][];
-//   value?: string;
-// };
+export type PathLayer = {
+  type: LayerType.Path;
+  x: number;
+  y: number;
+  height: number;
+  width: number;
+  fillColor: Color;
+  // points: number[][]; // TODO: FIX THIS
+  value?: string;
+};
 
 export type Point = {
   x: number;
@@ -119,5 +122,5 @@ export enum Side {
   BottomRight,
 }
 
-// export type Layer = RectangleLayer | CircleLayer | TextLayer | PathLayer;
-export type Layer = RectangleLayer | CircleLayer | TextLayer;
+export type Layer = RectangleLayer | CircleLayer | TextLayer | PathLayer;
+// export type Layer = RectangleLayer | CircleLayer | TextLayer;
