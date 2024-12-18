@@ -1,7 +1,6 @@
 import { UserButton } from "@clerk/nextjs";
 import { currentUser } from "@clerk/nextjs/server";
 import { SettingsIcon } from "lucide-react";
-import Link from "next/link";
 
 export async function UserProfileSection() {
   const user = await currentUser();
