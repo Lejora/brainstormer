@@ -65,8 +65,8 @@ export function Board({ canvasId }: BoardProps) {
       layerType:
         | LayerType.Circle
         | LayerType.Rectangle
-        | LayerType.Text
-        | LayerType.Path,
+        | LayerType.Text,
+        // | LayerType.Path,
       position: Point
     ) => {
       const liveLayers = storage.get("layers");
