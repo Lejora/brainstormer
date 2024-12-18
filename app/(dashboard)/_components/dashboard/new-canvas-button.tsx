@@ -19,7 +19,7 @@ export function NewCanvasButton({ teamId, disabled }: NewCanvasButtonProps) {
       teamId,
       title: "無題",
     })
-      .then((id) => {
+      .then(() => {
         toast.success("キャンバスを作成しました");
       })
       .catch(() => {

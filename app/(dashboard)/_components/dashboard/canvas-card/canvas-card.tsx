@@ -22,7 +22,7 @@ export function CanvasCard({
   authorId,
   authorName,
   createdAt,
-  teamId,
+  // teamId, TODO: FIX THIS
 }: canvasCardProps) {
   const { userId } = useAuth();
   const authorLabel = userId === authorId ? "あなた" : authorName;
@@ -45,7 +45,7 @@ export function CanvasCard({
         title={title}
         authorLabel={authorLabel}
         createdAtLabel={createdAtLabel}
-        onClick={() => {}}
+        onClick={() => { }}
         disabled={false}
         id={id}
       />
