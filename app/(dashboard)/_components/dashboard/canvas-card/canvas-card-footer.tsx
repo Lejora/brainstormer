@@ -15,8 +15,6 @@ export function CanvasCardFooter({
   title,
   authorLabel,
   createdAtLabel,
-  onClick,
-  disabled,
   id,
 }: CanvasCardFooterProps) {
   return (

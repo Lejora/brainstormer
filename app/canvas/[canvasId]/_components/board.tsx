@@ -219,7 +219,7 @@ export function Board({ canvasId }: BoardProps) {
   }, []);
 
   const onPointerUp = useMutation(
-    ({}, e) => {
+    ({ }, e) => {
       const point = pointerEventToCanvasPoint(e, camera);
 
       if (canvasState.mode === CanvasMode.Pressing) {

@@ -95,7 +95,7 @@ export type PathLayer = {
   height: number;
   width: number;
   fillColor: Color;
-  points: number[][];
+  // points: number[][]; // TODO: FIX THIS
   value?: string;
 };
 
@@ -123,3 +123,4 @@ export enum Side {
 }
 
 export type Layer = RectangleLayer | CircleLayer | TextLayer | PathLayer;
+// export type Layer = RectangleLayer | CircleLayer | TextLayer;
