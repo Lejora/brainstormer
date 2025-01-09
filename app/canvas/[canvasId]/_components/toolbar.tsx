@@ -1,6 +1,6 @@
 import { ToolButton } from "@/app/canvas/[canvasId]/_components/tool-button"
 import { CanvasMode, CanvasState, LayerType } from "@/app/types/canvas";
-import { PencilIcon, MousePointer2Icon, RectangleHorizontalIcon, CircleIcon, EraserIcon, UndoIcon, RedoIcon, TypeIcon } from "lucide-react"
+import { PencilIcon, MousePointer2Icon, RectangleHorizontalIcon, CircleIcon, StickyNoteIcon, UndoIcon, RedoIcon, TypeIcon } from "lucide-react"
 
 interface ToolbarProps {
   canvasState: CanvasState;
@@ -42,14 +42,28 @@ export function Toolbar({
             mode: CanvasMode.Inserting,
             layerType: LayerType.Text
           })}
-          isActive={canvasState.mode === CanvasMode.Inserting
-            && canvasState.layerType === LayerType.Text}
+          isActive={
+            canvasState.mode === CanvasMode.Inserting
+            && canvasState.layerType === LayerType.Text
+          }
         />
         <ToolButton
           label="ペン"
           icon={PencilIcon}
           onClick={() => setCanvasState({ mode: CanvasMode.Pencil })}
           isActive={canvasState.mode === CanvasMode.Pencil}
+        />
+        <ToolButton
+          label="付箋"
+          icon={StickyNoteIcon}
+          onClick={() => setCanvasState({
+            mode: CanvasMode.Inserting,
+            layerType: LayerType.Note
+          })}
+          isActive={
+            canvasState.mode === CanvasMode.Inserting
+            && canvasState.layerType === LayerType.Note
+          }
         />
         <ToolButton
           label="四角形"
@@ -73,11 +87,7 @@ export function Toolbar({
             && canvasState.layerType === LayerType.Circle
           }
         />
-        <ToolButton
-          label="消しゴム"
-          icon={EraserIcon}
-          onClick={() => { }}
-        />
+
       </div>
       <div className="bg-white rounded-md shadow-md p-1.5 flex flex-col items-center space-y-1">
         <ToolButton

@@ -1,8 +1,8 @@
 import { Kalam } from "next/font/google";
 import ContentEditable, { ContentEditableEvent } from "react-contenteditable";
 
-import { TextLayer } from "@/app/types/canvas";
-import { cn, colorToCss } from "@/lib/utils";
+import { NoteLayer } from "@/app/types/canvas";
+import { cn, colorToCss, getContrastingTextColor } from "@/lib/utils";
 import { useMutation } from "@liveblocks/react";
 
 const font = Kalam({
@@ -12,26 +12,26 @@ const font = Kalam({
 
 const calculateFontSize = (width: number, height: number) => {
   const maxFontSize = 96;
-  const scaleFactor = 0.5;
+  const scaleFactor = 0.3;
   const fontSizeBasedOnHeight = height * scaleFactor;
   const fontSizeBasedOnWidth = width * scaleFactor;
 
   return Math.min(maxFontSize, fontSizeBasedOnHeight, fontSizeBasedOnWidth);
 };
 
-interface TextProps {
+interface NoteProps {
   id: string;
-  layer: TextLayer;
+  layer: NoteLayer;
   onPointerDown: (e: React.PointerEvent, id: string) => void;
   selectionColor?: string;
 }
 
-export const Text = ({
+export const Note = ({
   id,
   layer,
   onPointerDown,
   selectionColor,
-}: TextProps) => {
+}: NoteProps) => {
   const { x, y, width, height, fillColor, value } = layer;
 
   const updateValue = useMutation(({ storage }, newValue: string) => {
@@ -45,7 +45,6 @@ export const Text = ({
   };
 
   return (
-    // foreignObject -> make its children svg
     <foreignObject
       x={x}
       y={y}
@@ -54,7 +53,9 @@ export const Text = ({
       onPointerDown={(e) => onPointerDown(e, id)}
       style={{
         outline: selectionColor ? `1px solid ${selectionColor}` : "none",
+        backgroundColor: fillColor ? colorToCss(fillColor) : "#000"
       }}
+      className="shadow-md drop-shadow-xl"
     >
       <ContentEditable
         html={value || "Text"}
@@ -65,7 +66,7 @@ export const Text = ({
         )}
         style={{
           fontSize: calculateFontSize(width, height),
-          color: fillColor ? colorToCss(fillColor) : "#000",
+          color: fillColor ? getContrastingTextColor(fillColor) : "#000",
         }}
       />
     </foreignObject>

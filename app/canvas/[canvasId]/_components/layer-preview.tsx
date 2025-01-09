@@ -5,6 +5,10 @@ import { useStorage } from "@liveblocks/react/suspense";
 import { memo } from "react";
 import { Rectangle } from "./rectangle";
 import { Text } from "./text";
+import { Circle } from "./circle";
+import { Note } from "./note";
+import { Path } from "./path";
+import { colorToCss } from "@/lib/utils";
 
 interface LayerPreviewProps {
   id: string;
@@ -39,6 +43,36 @@ export const LayerPreview = memo(
             selectionColor={selectionColor}
           />
         );
+      case LayerType.Circle:
+        return (
+          <Circle
+            id={id}
+            layer={layer}
+            onPointerDown={onLayerPointerDown}
+            selectionColor={selectionColor}
+          />
+        )
+      case LayerType.Note:
+        return (
+          <Note
+            id={id}
+            layer={layer}
+            onPointerDown={onLayerPointerDown}
+            selectionColor={selectionColor}
+          />
+        )
+      case LayerType.Path:
+        return (
+          <Path
+            key={id}
+            points={layer.points}
+            onPointerDown={(e) => onLayerPointerDown(e, id)}
+            stroke={selectionColor}
+            x={layer.x}
+            y={layer.y}
+            fillColor={layer.fillColor ? colorToCss(layer.fillColor) : "#000"}
+          />
+        )
       default:
         console.warn("Unknown layer type");
         return null;
