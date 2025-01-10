@@ -21,7 +21,7 @@ import {
 import { Info } from "./info";
 import { Participants } from "./participants";
 import { Toolbar } from "./toolbar";
-import { useCallback, useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 import { CursorsPresence } from "./cursors-presence";
 import {
   colorToCss,
@@ -42,6 +42,7 @@ import { LayerPreview } from "./layer-preview";
 import { SelectionBox } from "./selection-box";
 import { SelectionTools } from "./selection-tools";
 import { Path } from "./path";
+import { useDeleteLayers } from "@/hook/use-delete-layers";
 
 const MAX_LAYERS = 100;
 const MIN_SELECTION_NET_SIZE = 5;
@@ -260,12 +261,15 @@ export function Board({ canvasId }: BoardProps) {
     [history]
   );
 
-  const onWheel = useCallback((e: React.WheelEvent) => {
-    setCamera((camera) => ({
-      x: camera.x - e.deltaX,
-      y: camera.y - e.deltaY,
-    }));
-  }, []);
+  const onWheel = useCallback(
+    (e: React.WheelEvent) => {
+      setCamera((camera) => ({
+        x: camera.x - e.deltaX,
+        y: camera.y - e.deltaY,
+      }));
+    },
+    [setCamera]
+  );
 
   const onPointerMove = useMutation(
     ({ setMyPresence }, e: React.PointerEvent) => {
@@ -389,6 +393,24 @@ export function Board({ canvasId }: BoardProps) {
 
     return layerIdsToColorSelection;
   }, [selection]);
+
+  const deleteLayers = useDeleteLayers();
+
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      switch (e.key) {
+        case "Delete":
+          deleteLayers();
+          break;
+      }
+    };
+
+    document.addEventListener("keydown", handleKeyDown);
+
+    return () => {
+      document.removeEventListener("keydown", handleKeyDown);
+    };
+  }, [deleteLayers]);
 
   return (
     <main className="h-screen w-full relative bg-neutral-100 touch-none">
