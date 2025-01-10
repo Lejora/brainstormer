@@ -307,6 +307,7 @@ export function Board({ canvasId }: BoardProps) {
       const point = pointerEventToCanvasPoint(e, camera);
 
       if (canvasState.mode === CanvasMode.Pressing) {
+        unselectLayer();
         setCanvasState({ mode: CanvasMode.None });
       } else if (canvasState.mode === CanvasMode.Pencil) {
         insertPath();
