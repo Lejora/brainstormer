@@ -5,7 +5,6 @@ import {
   CanvasMode,
   CanvasState,
   Color,
-  Layer,
   LayerType,
   Point,
   Side,

@@ -9,7 +9,6 @@ import {
   XYWH,
 } from "@/app/types/canvas";
 import { clsx, type ClassValue } from "clsx";
-import { FileX2, X } from "lucide-react";
 import { twMerge } from "tailwind-merge";
 
 const COLORS = ["#DC2626", "#D97646", "#7C3AED", "#DB2777", "#059669"];
