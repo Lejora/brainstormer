@@ -436,7 +436,7 @@ export function Board({ canvasId }: BoardProps) {
     return () => {
       document.removeEventListener("keydown", handleKeyDown);
     };
-  }, [deleteLayers]);
+  }, [deleteLayers, copyLayers, pasteLayers, history]);
 
   return (
     <main className="h-screen w-full relative bg-neutral-100 touch-none">
