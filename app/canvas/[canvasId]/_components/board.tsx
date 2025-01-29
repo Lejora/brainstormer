@@ -42,8 +42,9 @@ import { SelectionBox } from "./selection-box";
 import { SelectionTools } from "./selection-tools";
 import { Path } from "./path";
 import { useDeleteLayers } from "@/hook/use-delete-layers";
+import { useCopyLayers, usePasteLayers } from "@/hook/use-copy-paste-layers";
 
-const MAX_LAYERS = 100;
+export const MAX_LAYERS = 100;
 const MIN_SELECTION_NET_SIZE = 5;
 
 interface BoardProps {
@@ -394,12 +395,38 @@ export function Board({ canvasId }: BoardProps) {
   }, [selection]);
 
   const deleteLayers = useDeleteLayers();
+  const copyLayers = useCopyLayers();
+  const pasteLayers = usePasteLayers();
 
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
       switch (e.key) {
         case "Delete":
           deleteLayers();
+          break;
+        case "z":
+          if (e.ctrlKey) {
+            e.preventDefault();
+            history.undo();
+          }
+          break;
+        case "y":
+          if (e.ctrlKey) {
+            e.preventDefault();
+            history.redo();
+          }
+          break;
+        case "c":
+          if (e.ctrlKey) {
+            e.preventDefault();
+            copyLayers();
+          }
+          break;
+        case "v":
+          if (e.ctrlKey) {
+            e.preventDefault();
+            pasteLayers();
+          }
           break;
       }
     };

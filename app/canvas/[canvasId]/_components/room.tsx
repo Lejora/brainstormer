@@ -25,11 +25,13 @@ export function Room({ children, roomId, fallback }: RoomProps) {
           cursor: null,
           selection: [],
           pencilDraft: null,
-          penColor: null
+          penColor: null,
         }}
         initialStorage={{
           layers: new LiveMap<string, LiveObject<Layer>>(),
           layerIds: new LiveList([]),
+          copiedLayers: new LiveMap<string, LiveObject<Layer>>(),
+          copiedLayerIds: new LiveList([]),
         }}
       >
         <ClientSideSuspense fallback={fallback}>{children}</ClientSideSuspense>
