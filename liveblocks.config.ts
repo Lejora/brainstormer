@@ -19,6 +19,8 @@ declare global {
     Storage: {
       layers: LiveMap<string, LiveObject<Layer>>;
       layerIds: LiveList<string>;
+      copiedLayers: LiveMap<string, LiveObject<Layer>>;
+      copiedLayerIds: LiveList<string>;
     };
 
     // Custom user info set when authenticating with a secret key
